@@ -1,4 +1,4 @@
 import useStyles from './useStyles';
-import useTimerValue from './useTimerValue';
+import useTimerValue from './useValueCounter';
 
 export { useStyles, useTimerValue };

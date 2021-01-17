@@ -1,5 +1,5 @@
 import { CssBaseline, Grid, Typography } from '@material-ui/core';
-import TimerLengthButton from '../components/TimerLengthButton';
+import ButtonWithCounter from '../components/ButtonWithCounter';
 import { useStyles } from '../hooks';
 
 function App() {
@@ -14,13 +14,13 @@ function App() {
         </Typography>
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={4}>
-            <TimerLengthButton type="Work" initialValue={25} />
+            <ButtonWithCounter label="Work Length" initialValue={25} />
           </Grid>
           <Grid item xs={4}>
-            <TimerLengthButton type="Short Break" initialValue={5} />
+            <ButtonWithCounter label="Short Break Length" initialValue={5} />
           </Grid>
           <Grid item xs={4}>
-            <TimerLengthButton type="Long Break" initialValue={15} />
+            <ButtonWithCounter label="Long Break Length" initialValue={15} />
           </Grid>
         </Grid>
       </Grid>

@@ -2,22 +2,22 @@ import { IconButton, Grid, Typography } from '@material-ui/core';
 import { ArrowUpward, ArrowDownward } from '@material-ui/icons';
 import { useTimerValue } from '../hooks';
 
-interface ITimerLengthButton {
-  type?: string;
+interface IButtonWithCounter {
+  label?: string;
   initialValue?: number;
 }
 
-function TimerLengthButton({
-  type = '',
+function ButtonWithCounter({
+  label = '',
   initialValue = 0,
-}: ITimerLengthButton) {
-  const [minute, increase, decrease] = useTimerValue(initialValue);
+}: IButtonWithCounter) {
+  const [counterValue, increase, decrease] = useTimerValue(initialValue);
 
   return (
     <Grid container item xs={12}>
       <Grid item xs={12}>
         <Typography paragraph variant="h5">
-          {type} Length
+          {label}
         </Typography>
       </Grid>
       <Grid item xs={4}>
@@ -34,7 +34,7 @@ function TimerLengthButton({
         justify="center"
       >
         <Typography paragraph variant="h6">
-          {minute}
+          {counterValue}
         </Typography>
       </Grid>
       <Grid item xs={4}>
@@ -51,4 +51,4 @@ function TimerLengthButton({
   );
 }
 
-export default TimerLengthButton;
+export default ButtonWithCounter;
