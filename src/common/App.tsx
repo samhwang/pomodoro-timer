@@ -1,7 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import { useStyles } from '../hooks';
 
 function App() {
+  const classes = useStyles();
+
   return (
     <div className="App">
       <header className="App-header">
