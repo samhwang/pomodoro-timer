@@ -1,5 +1,6 @@
-import { Button } from '@material-ui/core';
-import useTimerValue from '../hooks/useTimerValue';
+import { IconButton, Grid, Typography } from '@material-ui/core';
+import { ArrowUpward, ArrowDownward } from '@material-ui/icons';
+import { useTimerValue } from '../hooks';
 
 interface ITimerLengthButton {
   type?: string;
@@ -13,16 +14,40 @@ function TimerLengthButton({
   const [minute, increase, decrease] = useTimerValue(initialValue);
 
   return (
-    <>
-      <p>{type} Length</p>
-      <Button variant="contained" color="primary" onClick={increase}>
-        Increase
-      </Button>
-      <span>{minute}</span>
-      <Button variant="contained" color="primary" onClick={decrease}>
-        Decrease
-      </Button>
-    </>
+    <Grid container item xs={12}>
+      <Grid item xs={12}>
+        <Typography paragraph variant="h5">
+          {type} Length
+        </Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <IconButton disableRipple edge="end" color="primary" onClick={increase}>
+          <ArrowUpward />
+        </IconButton>
+      </Grid>
+      <Grid
+        item
+        container
+        xs={4}
+        alignItems="center"
+        alignContent="center"
+        justify="center"
+      >
+        <Typography paragraph variant="h6">
+          {minute}
+        </Typography>
+      </Grid>
+      <Grid item xs={4}>
+        <IconButton
+          disableRipple
+          edge="start"
+          color="primary"
+          onClick={decrease}
+        >
+          <ArrowDownward />
+        </IconButton>
+      </Grid>
+    </Grid>
   );
 }
 
