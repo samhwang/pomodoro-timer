@@ -15,15 +15,62 @@ function App() {
     <>
       <CssBaseline />
       <Grid container spacing={1} className={classes.root}>
-        <Typography variant="h2" paragraph>
-          Pomodoro Timer
-        </Typography>
-        <Grid container item xs={12} spacing={2}>
-          {grids.map(({ label, initialValue }) => (
-            <Grid item xs={3} key={label}>
-              <ButtonWithCounter label={label} initialValue={initialValue} />
+        <Grid container item xs={12} alignItems="center">
+          <Grid item xs={12}>
+            <Typography variant="h2" paragraph align="center">
+              Pomodoro Timer
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container item xs={12} spacing={1}>
+          <Grid
+            container
+            item
+            xs={12}
+            md={6}
+            spacing={2}
+            direction="column"
+            alignItems="center"
+            justify="space-between"
+          >
+            {grids.map(({ label, initialValue }) => (
+              <Grid item xs={3} key={label}>
+                <ButtonWithCounter label={label} initialValue={initialValue} />
+              </Grid>
+            ))}
+          </Grid>
+          <Grid
+            container
+            item
+            xs={12}
+            md={6}
+            direction="column"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Grid item container xs={4} alignItems="center">
+              <Grid item xs={12}>
+                <Typography paragraph variant="h5">
+                  Time remaining:
+                </Typography>
+              </Grid>
             </Grid>
-          ))}
+            <Grid item container xs={4} alignItems="center">
+              <Grid item xs={12}>
+                <Typography paragraph variant="h5">
+                  Insert timer element here
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item container spacing={3} xs={4} alignItems="center">
+              <Grid item xs={6}>
+                Start Button
+              </Grid>
+              <Grid item xs={6}>
+                Stop Button
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>
