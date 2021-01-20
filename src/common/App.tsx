@@ -67,11 +67,14 @@ function App() {
               </Grid>
             </Grid>
             <Grid item container spacing={3} xs={4} alignItems="center">
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 Start Button
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 Stop Button
+              </Grid>
+              <Grid item xs={4}>
+                Reset Button
               </Grid>
             </Grid>
           </Grid>
