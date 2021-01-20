@@ -1,5 +1,5 @@
 import useStyles from './useStyles';
-import useTimerValue from './useValueCounter';
+import useValueCounter from './useValueCounter';
 import useZustandStore from './useZustandStore';
 
-export { useStyles, useTimerValue, useZustandStore };
+export { useStyles, useValueCounter, useZustandStore };
