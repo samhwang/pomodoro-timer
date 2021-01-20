@@ -5,9 +5,9 @@ import { useStyles } from '../hooks';
 function App() {
   const classes = useStyles();
   const grids = [
-    { label: 'Work Length', initialValue: 25 },
-    { label: 'Short Break Length', initialValue: 5 },
-    { label: 'Long Break Length', initialValue: 15 },
+    { label: 'Work Length', initialValue: 25, maxValue: 60 },
+    { label: 'Short Break Length', initialValue: 5, maxValue: 60 },
+    { label: 'Long Break Length', initialValue: 15, maxValue: 60 },
     { label: 'Interval', initialValue: 4 },
   ];
 
@@ -33,9 +33,13 @@ function App() {
             alignItems="center"
             justify="space-between"
           >
-            {grids.map(({ label, initialValue }) => (
+            {grids.map(({ label, initialValue, maxValue }) => (
               <Grid item xs={3} key={label}>
-                <ButtonWithCounter label={label} initialValue={initialValue} />
+                <ButtonWithCounter
+                  label={label}
+                  initialValue={initialValue}
+                  maxValue={maxValue}
+                />
               </Grid>
             ))}
           </Grid>
