@@ -4,6 +4,9 @@ import {
   LongBreakLengthButton,
   ShortBreakLengthButton,
   IntervalButton,
+  StartButton,
+  StopButton,
+  ResetButton,
 } from '../components/Buttons';
 import { useStyles } from '../hooks';
 
@@ -14,6 +17,11 @@ function App() {
     { label: 'Short Break Length', component: <ShortBreakLengthButton /> },
     { label: 'Long Break Length', component: <LongBreakLengthButton /> },
     { label: 'Interval', component: <IntervalButton /> },
+  ];
+  const timerButtons = [
+    { label: 'Start', component: <StartButton /> },
+    { label: 'Stop', component: <StopButton /> },
+    { label: 'Reset', component: <ResetButton /> },
   ];
 
   return (
@@ -68,15 +76,11 @@ function App() {
               </Grid>
             </Grid>
             <Grid item container spacing={3} xs={4} alignItems="center">
-              <Grid item xs={4}>
-                Start Button
-              </Grid>
-              <Grid item xs={4}>
-                Stop Button
-              </Grid>
-              <Grid item xs={4}>
-                Reset Button
-              </Grid>
+              {timerButtons.map(({ label, component }) => (
+                <Grid item xs={4} key={label}>
+                  {component}
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         </Grid>
