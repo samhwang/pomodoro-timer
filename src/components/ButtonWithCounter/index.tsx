@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { IconButton, Grid, Typography } from '@material-ui/core';
 import { ArrowUpward, ArrowDownward } from '@material-ui/icons';
-import { useValueCounter } from '../../hooks';
 
 interface IButtonWithCounter {
   label?: string;
-  initialValue?: number;
   maxValue?: number | null;
+  counterValue?: number;
+  setCounterValue?: (value: number) => void;
 }
 
 function getButtonId(label = '') {
@@ -14,16 +15,15 @@ function getButtonId(label = '') {
 
 function ButtonWithCounter({
   label = '',
-  initialValue = 0,
   maxValue = null,
+  counterValue = 0,
+  setCounterValue = (value: number) => {},
 }: IButtonWithCounter) {
-  const [counterValue, increase, decrease] = useValueCounter(
-    initialValue,
-    maxValue
-  );
   const id = getButtonId(label);
   const disableIncreaseButton = Boolean(maxValue && counterValue === maxValue);
   const disableDecreaseButton = counterValue === 0;
+  const increase = () => setCounterValue(counterValue + 1);
+  const decrease = () => setCounterValue(counterValue - 1);
 
   return (
     <Grid container item xs={12}>

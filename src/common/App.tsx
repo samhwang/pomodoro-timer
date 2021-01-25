@@ -1,14 +1,19 @@
 import { CssBaseline, Grid, Typography } from '@material-ui/core';
-import ButtonWithCounter from '../components/ButtonWithCounter';
+import {
+  WorkLengthButton,
+  LongBreakLengthButton,
+  ShortBreakLengthButton,
+  IntervalButton,
+} from '../components/Buttons';
 import { useStyles } from '../hooks';
 
 function App() {
   const classes = useStyles();
-  const grids = [
-    { label: 'Work Length', initialValue: 25, maxValue: 60 },
-    { label: 'Short Break Length', initialValue: 5, maxValue: 60 },
-    { label: 'Long Break Length', initialValue: 15, maxValue: 60 },
-    { label: 'Interval', initialValue: 4 },
+  const buttonsWithCounter = [
+    { label: 'Work Length', component: <WorkLengthButton /> },
+    { label: 'Short Break Length', component: <ShortBreakLengthButton /> },
+    { label: 'Long Break Length', component: <LongBreakLengthButton /> },
+    { label: 'Interval', component: <IntervalButton /> },
   ];
 
   return (
@@ -33,13 +38,9 @@ function App() {
             alignItems="center"
             justify="space-between"
           >
-            {grids.map(({ label, initialValue, maxValue }) => (
+            {buttonsWithCounter.map(({ label, component }) => (
               <Grid item xs={3} key={label}>
-                <ButtonWithCounter
-                  label={label}
-                  initialValue={initialValue}
-                  maxValue={maxValue}
-                />
+                {component}
               </Grid>
             ))}
           </Grid>
