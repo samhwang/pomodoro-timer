@@ -1,6 +1,25 @@
+/* eslint-disable no-unused-vars */
 import create from 'zustand';
+import type { State } from 'zustand';
 
 type TCurrentState = 'working' | 'long break' | 'short break';
+
+interface TimerState extends State {
+  workLength: number;
+  shortBreakLength: number;
+  longBreakLength: number;
+  interval: number;
+  isRunning: boolean;
+  currentState: TCurrentState;
+  setWorkLength: (workLength: number) => void;
+  setShortBreakLength: (shortBreakLength: number) => void;
+  setLongBreakLength: (longBreakLength: number) => void;
+  setInterval: (interval: number) => void;
+  setCurrentState: (currentState: TCurrentState) => void;
+  startTimer: () => void;
+  stopTimer: () => void;
+  resetState: () => void;
+}
 
 const initialState = {
   workLength: 25,
@@ -9,10 +28,9 @@ const initialState = {
   interval: 4,
   isRunning: false,
   currentState: 'working',
-  currentTimerValue: 1500,
-};
+} as TimerState;
 
-const useZustandStore = create((set) => ({
+const useZustandStore = create<TimerState>((set) => ({
   ...initialState,
   setWorkLength: (workLength: number) => set(() => ({ workLength })),
   setShortBreakLength: (shortBreakLength: number) =>
@@ -24,8 +42,7 @@ const useZustandStore = create((set) => ({
     set(() => ({ currentState })),
   startTimer: () => set(() => ({ isRunning: true })),
   stopTimer: () => set(() => ({ isRunning: false })),
-  setCurrentTimerValue: (currentTimerValue: number) =>
-    set(() => ({ currentTimerValue })),
+  resetState: () => set(() => ({ ...initialState })),
 }));
 
 export default useZustandStore;
