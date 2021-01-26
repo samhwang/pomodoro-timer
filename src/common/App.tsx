@@ -8,6 +8,7 @@ import {
   StopButton,
   ResetButton,
 } from '../components/Buttons';
+import { TimerClock, TimerStatus } from '../components/Timer';
 import { useStyles } from '../hooks';
 
 function App() {
@@ -63,17 +64,11 @@ function App() {
           >
             <Grid item container xs={4} alignItems="center">
               <Grid item xs={12}>
-                <Typography paragraph variant="h5">
-                  Time remaining:
-                </Typography>
+                <TimerStatus />
               </Grid>
             </Grid>
             <Grid item container xs={4} alignItems="center">
-              <Grid item xs={12}>
-                <Typography paragraph variant="h5">
-                  Insert timer element here
-                </Typography>
-              </Grid>
+              <TimerClock />
             </Grid>
             <Grid item container spacing={3} xs={4} alignItems="center">
               {timerButtons.map(({ label, component }) => (
