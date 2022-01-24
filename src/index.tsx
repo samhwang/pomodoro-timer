@@ -1,15 +1,9 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 async function renderRoot() {
-  if (import.meta.env.DEV) {
-    const { worker } = await import('./__mocks__/msw/browser');
-    worker.start();
-  }
-
   const RootComponent = (
     <StrictMode>
       <App />
