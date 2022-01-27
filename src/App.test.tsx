@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-it('renders learn React link', () => {
+it('renders footer link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Learn React/i);
-  expect(linkElement).toBeInTheDocument();
+  const viteLinkElement = screen.getByText(/Vite/i);
+  expect(viteLinkElement).toBeInTheDocument();
+  const samLinkElement = screen.getByText(/Sam Huynh/i);
+  expect(samLinkElement).toBeInTheDocument();
 });
