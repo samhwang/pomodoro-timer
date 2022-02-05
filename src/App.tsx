@@ -109,6 +109,7 @@ export default function App() {
               isTimerRunning={isTimerRunning}
               toggleTimer={toggleTimerRunning}
               reset={resetAll}
+              isBreak={isBreakTime}
             />
           </Grid>
         </Grid>

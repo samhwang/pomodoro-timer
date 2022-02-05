@@ -8,6 +8,7 @@ interface ITimerBox {
   isTimerRunning: boolean;
   toggleTimer: () => void;
   reset: () => void;
+  isBreak: boolean;
 }
 
 export default function TimerBox({
@@ -15,6 +16,7 @@ export default function TimerBox({
   seconds,
   toggleTimer,
   reset,
+  isBreak,
 }: ITimerBox) {
   const timeValue = useMemo(() => {
     const minutes = secondsToMinutes(seconds);
@@ -28,7 +30,7 @@ export default function TimerBox({
     <>
       <Grid item xs={12}>
         <Typography id="timer-label" variant="h3">
-          Session
+          {isBreak ? 'BREAK' : 'WORK'}
         </Typography>
       </Grid>
       <Grid item xs={12}>
