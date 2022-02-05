@@ -1,13 +1,12 @@
 import { IconButton, Grid, Typography } from '@mui/material';
-import {
-  ArrowUpward,
-  ArrowDownward,
-  PlayArrow,
-  Pause,
-  Refresh,
-} from '@mui/icons-material';
+import { PlayArrow, Pause, Refresh } from '@mui/icons-material';
+import SetTimerValue from './SetTimerValue';
+import useTimerValue from '../hooks/useTimerValue';
 
 export default function TimerBox() {
+  const [breakLength, incBreak, decBreak] = useTimerValue(5);
+  const [sessionLength, incSess, decSess] = useTimerValue(25);
+
   return (
     <Grid
       item
@@ -23,32 +22,20 @@ export default function TimerBox() {
         <Typography variant="h1">25 + 5 Clock</Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography variant="h3" id="break-label">
-          Break Length
-        </Typography>
-        <IconButton id="break-increment">
-          <ArrowUpward />
-        </IconButton>
-        <Typography id="break-length" variant="h3">
-          5
-        </Typography>
-        <IconButton id="break-decrement">
-          <ArrowDownward />
-        </IconButton>
+        <SetTimerValue
+          timerValue={breakLength}
+          inc={incBreak}
+          dec={decBreak}
+          type="break"
+        />
       </Grid>
       <Grid item xs={6}>
-        <Typography id="session-label" variant="h3">
-          Session Length
-        </Typography>
-        <IconButton id="session-increment">
-          <ArrowUpward />
-        </IconButton>
-        <Typography id="session-length" variant="h3">
-          25
-        </Typography>
-        <IconButton id="session-decrement">
-          <ArrowDownward />
-        </IconButton>
+        <SetTimerValue
+          timerValue={sessionLength}
+          inc={incSess}
+          dec={decSess}
+          type="session"
+        />
       </Grid>
       <Grid item container xs={12}>
         <Grid item xs={12}>
