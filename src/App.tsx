@@ -10,8 +10,9 @@ import useTimerValue from './hooks/useTimerValue';
 const theme = createTheme();
 
 export default function App() {
-  const [breakLength, incBreak, decBreak, getBreak] = useTimerValue(5);
-  const [sessionLength, incSess, decSess, getSess] = useTimerValue(25);
+  const [breakLength, incBreak, decBreak, getBreak, setBreak] =
+    useTimerValue(5);
+  const [sessionLength, incSess, decSess, getSess, setSess] = useTimerValue(25);
 
   const [isBreakTime, toggleBreakTime] = useToggle(false);
   const [isTimerRunning, toggleTimerRunning] = useBoolean(false);
@@ -41,6 +42,13 @@ export default function App() {
       setSeconds(getMinutes() * 60);
     }
   }, 1000);
+
+  const resetAll = useCallback(() => {
+    setBreak(5);
+    setSess(25);
+    toggleBreakTime(false);
+    toggleTimerRunning(false);
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -78,6 +86,7 @@ export default function App() {
               seconds={currentSeconds}
               isTimerRunning={isTimerRunning}
               toggleTimer={toggleTimerRunning}
+              reset={resetAll}
             />
           </Grid>
         </Grid>

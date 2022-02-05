@@ -5,12 +5,14 @@ interface ITimerBox {
   seconds: number;
   isTimerRunning: boolean;
   toggleTimer: Function;
+  reset: Function;
 }
 
 export default function TimerBox({
   isTimerRunning,
   seconds,
   toggleTimer,
+  reset,
 }: ITimerBox) {
   return (
     <>
@@ -32,7 +34,7 @@ export default function TimerBox({
           <PlayArrow />
           <Pause />
         </IconButton>
-        <IconButton id="reset">
+        <IconButton id="reset" onClick={() => reset()}>
           <Refresh />
         </IconButton>
       </Grid>
