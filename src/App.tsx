@@ -17,11 +17,11 @@ export default function App() {
   const [isBreakTime, toggleBreakTime] = useToggle(false);
   const [isTimerRunning, toggleTimerRunning] = useBoolean(false);
   const getMinutes = useCallback(
-    () => (isBreakTime ? getBreak() : getSess()),
+    (breaktime: boolean) => (breaktime ? getBreak() : getSess()),
     []
   );
   const [currentSeconds, , decreaseSeconds, , setSeconds] = useTimerValue(
-    getMinutes() * 60,
+    getMinutes(isBreakTime) * 60,
     3600,
     0
   );
@@ -33,7 +33,7 @@ export default function App() {
 
   useEffect(() => {
     toggleTimerRunning(false);
-    setSeconds(getMinutes() * 60);
+    setSeconds(getMinutes(isBreakTime) * 60);
   }, [breakLength, sessionLength]);
 
   useInterval(() => {
@@ -43,7 +43,9 @@ export default function App() {
 
     if (currentSeconds === 0) {
       toggleBreakTime(!isBreakTime);
-      setSeconds(getMinutes() * 60);
+      // by this point, React still hasn't finished the batch update yet, so
+      // get minutes has to work with the reverse of what isBreakTime state is.
+      setSeconds(getMinutes(!isBreakTime) * 60);
       controls.play();
     }
   }, 1000);
