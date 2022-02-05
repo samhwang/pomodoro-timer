@@ -9,3 +9,7 @@ dist-ssr
 
 # Test Coverage
 coverage
+
+# Bundle stats
+stats.html
+stats.json
