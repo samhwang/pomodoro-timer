@@ -1,5 +1,5 @@
 import { Grid, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { useBoolean, useInterval, useToggle } from 'react-use';
+import { useBoolean, useInterval, useToggle, useAudio } from 'react-use';
 import { useEffect, useCallback } from 'react';
 import Title from './components/Title';
 import Footer from './components/Footer';
@@ -25,6 +25,11 @@ export default function App() {
     3600,
     0
   );
+  const [audio, , controls] = useAudio({
+    src: '/beep.wav',
+    autoPlay: false,
+    id: 'beep',
+  });
 
   useEffect(() => {
     toggleTimerRunning(false);
@@ -37,9 +42,9 @@ export default function App() {
     }
 
     if (currentSeconds === 0) {
-      toggleTimerRunning(false);
       toggleBreakTime(!isBreakTime);
       setSeconds(getMinutes() * 60);
+      controls.play();
     }
   }, 1000);
 
@@ -48,6 +53,7 @@ export default function App() {
     setSess(25);
     toggleBreakTime(false);
     toggleTimerRunning(false);
+    controls.seek(0);
   }, []);
 
   return (
@@ -82,6 +88,7 @@ export default function App() {
             />
           </Grid>
           <Grid item container xs={12}>
+            {audio}
             <TimerBox
               seconds={currentSeconds}
               isTimerRunning={isTimerRunning}
