@@ -36,19 +36,22 @@ export default function App() {
     setSeconds(getMinutes(isBreakTime) * 60);
   }, [breakLength, sessionLength]);
 
-  useInterval(() => {
-    if (isTimerRunning && currentSeconds > 0) {
-      decreaseSeconds();
-    }
+  useInterval(
+    () => {
+      if (currentSeconds > 0) {
+        decreaseSeconds();
+      }
 
-    if (currentSeconds === 0) {
-      toggleBreakTime(!isBreakTime);
-      // by this point, React still hasn't finished the batch update yet, so
-      // get minutes has to work with the reverse of what isBreakTime state is.
-      setSeconds(getMinutes(!isBreakTime) * 60);
-      controls.play();
-    }
-  }, 1000);
+      if (currentSeconds === 0) {
+        toggleBreakTime(!isBreakTime);
+        // by this point, React still hasn't finished the batch update yet, so
+        // get minutes has to work with the reverse of what isBreakTime state is.
+        setSeconds(getMinutes(!isBreakTime) * 60);
+        controls.play();
+      }
+    },
+    isTimerRunning ? 1000 : null
+  );
 
   const resetAll = useCallback(() => {
     setBreak(5);
