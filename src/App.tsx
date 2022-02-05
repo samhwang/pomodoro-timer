@@ -1,18 +1,24 @@
-import { Grid, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import {
+  Grid,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  Typography,
+  Link,
+} from '@mui/material';
 import { useBoolean, useInterval, useToggle, useAudio } from 'react-use';
 import { useEffect, useCallback } from 'react';
-import Title from './components/Title';
-import Footer from './components/Footer';
-import SetTimerValue from './components/SetTimerValue';
+import SetTimerInput from './components/SetTimerInput';
 import TimerBox from './components/TimerBox';
 import useTimerValue from './hooks/useTimerValue';
 
 const theme = createTheme();
 
 export default function App() {
-  const [breakLength, incBreak, decBreak, getBreak, setBreak] =
+  const [breakLength, incBreak, decBreak, getBreak, , resetBreak] =
     useTimerValue(5);
-  const [sessionLength, incSess, decSess, getSess, setSess] = useTimerValue(25);
+  const [sessionLength, incSess, decSess, getSess, , resetSess] =
+    useTimerValue(25);
 
   const [isBreakTime, toggleBreakTime] = useToggle(false);
   const [isTimerRunning, toggleTimerRunning] = useBoolean(false);
@@ -54,17 +60,19 @@ export default function App() {
   );
 
   const resetAll = useCallback(() => {
-    setBreak(5);
-    setSess(25);
+    resetBreak();
+    resetSess();
     toggleBreakTime(false);
     toggleTimerRunning(false);
     controls.seek(0);
   }, []);
 
+  const currentYear = new Date().getFullYear();
+
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Grid container maxWidth="xs">
-        <CssBaseline />
         <Grid
           item
           container
@@ -75,9 +83,11 @@ export default function App() {
             textAlign: 'center',
           }}
         >
-          <Title />
+          <Grid item xs={12}>
+            <Typography variant="h1">25 + 5 Clock</Typography>
+          </Grid>
           <Grid item xs={6}>
-            <SetTimerValue
+            <SetTimerInput
               timerValue={breakLength}
               inc={incBreak}
               dec={decBreak}
@@ -85,7 +95,7 @@ export default function App() {
             />
           </Grid>
           <Grid item xs={6}>
-            <SetTimerValue
+            <SetTimerInput
               timerValue={sessionLength}
               inc={incSess}
               dec={decSess}
@@ -102,7 +112,27 @@ export default function App() {
             />
           </Grid>
         </Grid>
-        <Footer />
+        <Grid item xs={12}>
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{
+              color: 'text.secondary',
+              marginTop: 8,
+              marginBottom: 4,
+            }}
+          >
+            {'Built with '}
+            <Link color="inherit" href="https://vitejs.dev/">
+              Vite
+            </Link>
+            {'. Copyright © '}
+            <Link color="inherit" href="https://samhwang.github.io/">
+              Sam Huynh
+            </Link>{' '}
+            {currentYear}.
+          </Typography>
+        </Grid>
       </Grid>
     </ThemeProvider>
   );

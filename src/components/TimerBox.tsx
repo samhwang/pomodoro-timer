@@ -6,8 +6,8 @@ import { secondsToMinutes } from 'date-fns';
 interface ITimerBox {
   seconds: number;
   isTimerRunning: boolean;
-  toggleTimer: Function;
-  reset: Function;
+  toggleTimer: () => void;
+  reset: () => void;
 }
 
 export default function TimerBox({

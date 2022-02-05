@@ -1,25 +1,25 @@
 import { IconButton, Typography } from '@mui/material';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
+import { useCallback } from 'react';
 
-function uppercaseFirstChar(word: string) {
-  const firstChar = word.slice(0, 1).toUpperCase();
-  const restOfType = word.slice(1);
-  return firstChar + restOfType;
-}
-
-interface ISetTimerValue {
+interface ISetTimerInput {
   timerValue: number;
-  inc: Function;
-  dec: Function;
+  inc: () => void;
+  dec: () => void;
   type: string;
 }
 
-export default function SetTimerValue({
+export default function SetTimerInput({
   timerValue,
   inc,
   dec,
   type,
-}: ISetTimerValue) {
+}: ISetTimerInput) {
+  const uppercaseFirstChar = useCallback((word: string) => {
+    const firstChar = word.slice(0, 1).toUpperCase();
+    const restOfType = word.slice(1);
+    return firstChar + restOfType;
+  }, []);
   const title = `${uppercaseFirstChar(type)} Length`;
 
   return (
