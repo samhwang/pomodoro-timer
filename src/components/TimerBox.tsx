@@ -6,9 +6,10 @@ import { secondsToMinutes } from 'date-fns';
 interface ITimerBox {
   seconds: number;
   isTimerRunning: boolean;
-  toggleTimer: () => void;
+  toggleTimer: (timerState: boolean) => void;
   reset: () => void;
   isBreak: boolean;
+  currentSet: number;
 }
 
 export default function TimerBox({
@@ -17,6 +18,7 @@ export default function TimerBox({
   toggleTimer,
   reset,
   isBreak,
+  currentSet,
 }: ITimerBox) {
   const timeValue = useMemo(() => {
     const minutes = secondsToMinutes(seconds);
@@ -28,15 +30,29 @@ export default function TimerBox({
 
   return (
     <>
-      <Grid item xs={12}>
-        <Typography id="timer-label" variant="h3">
-          {isBreak ? 'BREAK' : 'WORK'}
-        </Typography>
+      <Grid item xs={6}>
+        <Grid item xs={12}>
+          <Typography id="timer-label" variant="h3">
+            Current Set
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography id="sessions-left" variant="h3">
+            {currentSet}
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Typography id="time-left" variant="h3">
-          {timeValue}
-        </Typography>
+      <Grid item xs={6}>
+        <Grid item xs={12}>
+          <Typography id="timer-label" variant="h3">
+            {isBreak ? 'BREAK' : 'WORK'}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography id="time-left" variant="h3">
+            {timeValue}
+          </Typography>
+        </Grid>
       </Grid>
       <Grid item xs={12}>
         <IconButton

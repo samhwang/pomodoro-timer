@@ -19,6 +19,12 @@ export default function App() {
     useTimerValue(5);
   const [sessionLength, incSess, decSess, getSess, , resetSess] =
     useTimerValue(25);
+  const [sets, incSet, decSet, , , resetSet] = useTimerValue(16, 48, 0);
+  const [currentSet, incCurrentSet, , , , resetCurrentSet] = useTimerValue(
+    0,
+    sets,
+    0
+  );
 
   const [isBreakTime, toggleBreakTime] = useToggle(false);
   const [isTimerRunning, toggleTimerRunning] = useBoolean(false);
@@ -49,6 +55,9 @@ export default function App() {
       }
 
       if (currentSeconds === 0) {
+        if (isBreakTime) {
+          incCurrentSet();
+        }
         toggleBreakTime(!isBreakTime);
         controls.play();
       }
@@ -69,6 +78,8 @@ export default function App() {
   const resetAll = useCallback(() => {
     resetBreak();
     resetSess();
+    resetSet();
+    resetCurrentSet();
     toggleBreakTime(false);
     toggleTimerRunning(false);
     controls.seek(0);
@@ -91,9 +102,17 @@ export default function App() {
           }}
         >
           <Grid item xs={12}>
-            <Typography variant="h1">25 + 5 Clock</Typography>
+            <Typography variant="h1">Pomodoro Timer</Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
+            <SetTimerInput
+              timerValue={sets}
+              inc={incSet}
+              dec={decSet}
+              type="sets"
+            />
+          </Grid>
+          <Grid item xs={4}>
             <SetTimerInput
               timerValue={breakLength}
               inc={incBreak}
@@ -101,7 +120,7 @@ export default function App() {
               type="break"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <SetTimerInput
               timerValue={sessionLength}
               inc={incSess}
@@ -117,6 +136,7 @@ export default function App() {
               toggleTimer={toggleTimerRunning}
               reset={resetAll}
               isBreak={isBreakTime}
+              currentSet={currentSet}
             />
           </Grid>
         </Grid>
