@@ -1,5 +1,5 @@
 {
-  "name": "@samhwang/vite-react-starter-template",
+  "name": "@samhwang/pomodoro-timer",
   "version": "0.0.0",
   "private": true,
   "msw": {
