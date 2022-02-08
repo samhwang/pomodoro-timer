@@ -1,19 +1,17 @@
-#!/usr/bin/env sh
+# !/bin/bash
 
-set -e
+git fetch origin ${DEPLOY_BRANCH}
+git checkout ${DEPLOY_BRANCH}
 
-npm run build
-
-cd dist
+find . -maxdepth 1 ! -name "${STATIC_FOLDER}" ! -name '.git' ! -name '.gitignore' -exec rm -rf {} \;
+mv ${STATIC_FOLDER}/* .
+rm -Rf ${STATIC_FOLDER}
 
 test -f ".nojekyll" || touch .nojekyll
 
-git init
-git add remote origin ${REMOTE_REPO}
-git fetch origin ${DEPLOY_BRANCH}
-git checkout ${DEPLOY_BRANCH}
+REMOTE_REPO="https://${ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 git add -fA
-git commit --alow-empty -m 'Updates'
+git commit --allow-empty -m "Updates"
 git push ${REMOTE_REPO} ${DEPLOY_BRANCH}
 
 echo "Successfully built and deployed."

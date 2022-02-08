@@ -20,13 +20,16 @@ jobs:
           cache: "npm"
 
       - name: Set up project
-        run: yarn install
+        run: npm ci
 
       - name: Run linting
-        run: yarn lint
+        run: npm run lint
 
       - name: Run tests
-        run: yarn test:coverage
+        run: npm run test
+
+      - name: Build production assets
+        run: npm run build
 
       - name: Set up git credentials
         env:
