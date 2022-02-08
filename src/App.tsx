@@ -6,11 +6,12 @@ import {
   Typography,
   Link,
 } from '@mui/material';
-import { useBoolean, useInterval, useToggle, useAudio } from 'react-use';
-import { useEffect, useCallback } from 'react';
+import { useBoolean, useAudio } from 'react-use';
+import { useCallback } from 'react';
 import SetTimerInput from './components/SetTimerInput';
 import TimerBox from './components/TimerBox';
 import useTimerValue from './hooks/useTimerValue';
+import useTimerState from './hooks/useTimerState';
 
 const theme = createTheme();
 
@@ -26,16 +27,10 @@ export default function App() {
     0
   );
 
-  const [isBreakTime, toggleBreakTime] = useToggle(false);
-  const [isTimerRunning, toggleTimerRunning] = useBoolean(false);
+  const [isBreakTime, toggleBreakTime] = useBoolean(false);
   const getMinutes = useCallback(
     (breaktime: boolean = isBreakTime) => (breaktime ? getBreak() : getSess()),
     []
-  );
-  const [currentSeconds, , decreaseSeconds, , setSeconds] = useTimerValue(
-    getMinutes(isBreakTime) * 60,
-    3600,
-    0
   );
   const [audio, , controls] = useAudio({
     src: '/beep.wav',
@@ -43,47 +38,31 @@ export default function App() {
     id: 'beep',
   });
 
-  useEffect(() => {
-    toggleTimerRunning(false);
-    setSeconds(getMinutes(isBreakTime) * 60);
-  }, [breakLength, sessionLength]);
+  const [currentSeconds, isTimerRunning, toggleTimerRunning, resetAll] =
+    useTimerState(
+      getMinutes(isBreakTime),
+      () => {
+        if (currentSet === sets) {
+          toggleTimerRunning(false);
+          return;
+        }
 
-  useInterval(
-    () => {
-      if (currentSeconds > 0) {
-        decreaseSeconds();
-      }
-
-      if (currentSeconds === 0) {
         if (isBreakTime) {
           incCurrentSet();
         }
+
         toggleBreakTime(!isBreakTime);
         controls.play();
+      },
+      () => {
+        resetBreak();
+        resetSess();
+        resetSet();
+        resetCurrentSet();
+        toggleBreakTime(false);
+        controls.seek(0);
       }
-    },
-    isTimerRunning ? 1000 : null
-  );
-
-  useEffect(() => {
-    setSeconds(getMinutes(isBreakTime) * 60);
-  }, [isBreakTime]);
-
-  useEffect(() => {
-    if (currentSet === sets) {
-      toggleTimerRunning(false);
-    }
-  }, [currentSet, sets]);
-
-  const resetAll = useCallback(() => {
-    resetBreak();
-    resetSess();
-    resetSet();
-    resetCurrentSet();
-    toggleBreakTime(false);
-    toggleTimerRunning(false);
-    controls.seek(0);
-  }, []);
+    );
 
   const currentYear = new Date().getFullYear();
 
