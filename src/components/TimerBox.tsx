@@ -44,7 +44,7 @@ export default function TimerBox({
       </Grid>
       <Grid item xs={6}>
         <Grid item xs={12}>
-          <Typography id="timer-label" variant="h3">
+          <Typography id="session-label" variant="h3">
             {isBreak ? 'BREAK' : 'WORK'}
           </Typography>
         </Grid>
