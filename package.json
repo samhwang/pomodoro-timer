@@ -15,7 +15,7 @@
     "preview": "vite preview",
     "pretest": "rimraf coverage",
     "test": "jest",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier -w src",
     "format": "npm run lint:fix && npm run prettier"
