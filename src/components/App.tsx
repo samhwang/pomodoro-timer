@@ -1,17 +1,12 @@
-import {
-  Grid,
-  CssBaseline,
-  ThemeProvider,
-  createTheme,
-  Typography,
-  Link,
-} from '@mui/material';
+import { Grid, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { useBoolean, useAudio } from 'react-use';
 import { useCallback } from 'react';
-import SetTimerInput from './components/SetTimerInput';
-import TimerBox from './components/TimerBox';
-import useTimerValue from './hooks/useTimerValue';
-import useTimerState from './hooks/useTimerState';
+import SetTimerInput from './SetTimerInput';
+import TimerBox from './TimerBox';
+import Header from './Header';
+import Footer from './Footer';
+import useTimerValue from '../hooks/useTimerValue';
+import useTimerState from '../hooks/useTimerState';
 
 const theme = createTheme();
 
@@ -64,12 +59,13 @@ export default function App() {
       }
     );
 
-  const currentYear = new Date().getFullYear();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Grid container maxWidth="xs">
+        <Grid item xs={12}>
+          <Header />
+        </Grid>
         <Grid
           item
           container
@@ -80,9 +76,6 @@ export default function App() {
             textAlign: 'center',
           }}
         >
-          <Grid item xs={12}>
-            <Typography variant="h1">Pomodoro Timer</Typography>
-          </Grid>
           <Grid item xs={4}>
             <SetTimerInput
               timerValue={sets}
@@ -120,25 +113,7 @@ export default function App() {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{
-              color: 'text.secondary',
-              marginTop: 8,
-              marginBottom: 4,
-            }}
-          >
-            {'Built with '}
-            <Link color="inherit" href="https://vitejs.dev/">
-              Vite
-            </Link>
-            {'. Copyright © '}
-            <Link color="inherit" href="https://samhwang.github.io/">
-              Sam Huynh
-            </Link>{' '}
-            {currentYear}.
-          </Typography>
+          <Footer />
         </Grid>
       </Grid>
     </ThemeProvider>
