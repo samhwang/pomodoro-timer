@@ -1,8 +1,17 @@
-import { useBoolean, useInterval } from 'react-use';
+import { useBoolean, useCounter, useInterval } from 'react-use';
 import { useEffect } from 'react';
-import useTimerValue from './useTimerValue';
 
-export default function useTimerState(
+export function useTimerValue(initialValue: number, max = 60, min = 1) {
+  const [timerValue, { inc, dec, get, set, reset }] = useCounter(
+    initialValue,
+    max,
+    min
+  );
+
+  return [timerValue, inc, dec, get, set, reset] as const;
+}
+
+export function useTimerState(
   minutes: number,
   onDone: () => void,
   onReset: (isBreakTime?: boolean) => void

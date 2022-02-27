@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import TimerContainer from './TimerContainer';
 
 it('renders title and footer link', () => {
-  render(<App />);
+  render(<TimerContainer />);
 
   const titleElement = screen.getByText(/Pomodoro Timer/i);
   expect(titleElement).toBeInTheDocument();

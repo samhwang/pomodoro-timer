@@ -1,11 +1,14 @@
 import { IconButton, Typography } from '@mui/material';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { useCallback } from 'react';
+import { useTimerValue } from './useTimer';
 
-interface ISetTimerInput {
-  timerValue: number;
-  inc: () => void;
-  dec: () => void;
+type TimerValue = ReturnType<typeof useTimerValue>;
+
+export interface ISetTimerInput {
+  timerValue: TimerValue[0];
+  inc: TimerValue[1];
+  dec: TimerValue[2];
   type: string;
 }
 

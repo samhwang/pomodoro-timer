@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useTimerState from './useTimerState';
+import { useTimerState } from './useTimer';
 
 describe('useTimerState hook', () => {
   beforeAll(() => {
@@ -46,7 +46,7 @@ describe('useTimerState hook', () => {
     expect(result.current[0]).toEqual(3600);
   });
 
-  it('Should decrease timer by 1 second when Timer is running', () => {
+  it('Should decrease timer by 1 second when TimerContainer is running', () => {
     const { result } = renderHook(() =>
       useTimerState(minutes, onDone, onReset)
     );

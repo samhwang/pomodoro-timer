@@ -1,12 +1,12 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import TimerContainer from './features/timer/TimerContainer';
 import reportWebVitals from './reportWebVitals';
 
 async function renderRoot() {
   const RootComponent = (
     <StrictMode>
-      <App />
+      <TimerContainer />
     </StrictMode>
   );
 
